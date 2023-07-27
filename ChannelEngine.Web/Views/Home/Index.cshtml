@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div>
+    <h1 class="display-4">WELCOME</h1>
+    <p>Please select an action from a list below:</p>
+    <ul>
+        <li><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Orders">Get orders in progress</a></li>
+        <li><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Products">Get top 5 products from orders in progress / Set a product stock size to 25</a></li>
+    </ul>
+</div>

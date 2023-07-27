@@ -1,0 +1,45 @@
+﻿@model ProductsViewModel
+@{
+    ViewData["Title"] = "Orders in progress";
+}
+
+<div>
+    <h1 class="display-4">ORDERS IN PROGRESS</h1>
+
+    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">&larr; Back</a>
+    
+    @foreach (var message in Model.Messages)
+    {
+        var alertClass = message.Type == MessageType.Error
+        ? "danger" : message.Type == MessageType.Warning
+        ? "warning" : "success";
+        <p class="alert alert-@alertClass">@message.Text</p>
+    }
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product name</th>
+                <th>EAN</th>
+                <th>Quantity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.EAN</td>
+                    <td>@product.Quantity</td>
+                    <td><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Stock" asp-route-product="@product.MerchantProductNo"
+                       asp-route-stock="@product.StockLocationId" asp-route-size="25">Set stock size to 25</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">&larr; Back</a>
+
+</div>

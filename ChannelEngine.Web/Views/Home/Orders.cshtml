@@ -1,0 +1,49 @@
+﻿@model OrdersViewModel
+@{
+    ViewData["Title"] = "Orders in progress";
+}
+
+<div>
+    <h1 class="display-4">ORDERS IN PROGRESS</h1>
+
+    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">&larr; Back</a>
+
+    @foreach (var message in Model.Messages)
+    {
+        var alertClass = message.Type == MessageType.Error
+        ? "danger" : message.Type == MessageType.Warning
+        ? "warning" : "success";
+        <p class="alert alert-@alertClass">@message.Text</p>
+    }
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Product name</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                var id = order.Id.ToString();
+                @foreach (var product in order.Lines)
+                {
+                    <tr>
+                        @if(!string.IsNullOrEmpty(id))
+                        {
+                            <td rowspan="@order.Lines.Count">@order.Id</td>
+                        }
+                        <td>@product.Description</td>
+                        <td>@product.Quantity</td>
+                    </tr>
+                    id = string.Empty;
+                }
+            }
+        </tbody>
+    </table>
+
+    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">&larr; Back</a>
+
+</div>
